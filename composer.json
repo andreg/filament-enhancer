@@ -1,0 +1,19 @@
+{
+    "name": "andreg/filament-enhancer",
+    "description": "Filament enhancer.",
+    "type": "library",
+    "license": "MIT",
+    "autoload": {
+        "psr-4": {
+            "Andreg\\FilamentEnhancer\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Andrea Gandino",
+            "email": "andreagandino@gmail.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "require": {}
+}
