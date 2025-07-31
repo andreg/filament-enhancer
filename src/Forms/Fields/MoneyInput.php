@@ -22,6 +22,8 @@ class MoneyInput extends TextInput {
 		$formatter = new \NumberFormatter( $locale, \NumberFormatter::DECIMAL );
 		$formatter->setAttribute( \NumberFormatter::FRACTION_DIGITS, 2 );
 
+		$this->currency( config( 'enhancer.currency', $this->currency ) );
+
 		$this->prefix( function () use ( $locale ) {
 			$formatter = new \NumberFormatter( 'en', \NumberFormatter::CURRENCY );
 			$formatted = $formatter->formatCurrency( 0, $this->currency );

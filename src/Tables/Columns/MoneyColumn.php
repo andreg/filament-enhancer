@@ -15,6 +15,7 @@ class MoneyColumn extends \Filament\Tables\Columns\TextColumn {
 	protected function setUp(): void {
 		parent::setUp();
 
+		$this->currency( config( 'enhancer.currency', $this->currency ) );
 		$this->isNumeric( false );
 		$this->money( $this->currency );
 	}
