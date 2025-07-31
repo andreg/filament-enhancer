@@ -1,0 +1,22 @@
+<?php
+
+namespace Andreg\FilamentEnhancer\Tables\Columns;
+
+class MoneyColumn extends \Filament\Tables\Columns\TextColumn {
+
+	protected string $currency = 'USD';
+
+	public function currency( string $currency ): static {
+		$this->currency = $currency;
+
+		return $this;
+	}
+
+	protected function setUp(): void {
+		parent::setUp();
+
+		$this->isNumeric( false );
+		$this->money( $this->currency );
+	}
+
+}

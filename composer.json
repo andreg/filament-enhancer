@@ -8,12 +8,19 @@
             "Andreg\\FilamentEnhancer\\": "src/"
         }
     },
+	"extra": {
+		"laravel": {
+			"providers": [
+				"Andreg\\FilamentEnhancer\\Providers\\FilamentEnhancerServiceProvider"
+			]
+		}
+	},
     "authors": [
         {
             "name": "Andrea Gandino",
             "email": "andreagandino@gmail.com"
         }
     ],
-    "minimum-stability": "dev",
+    "minimum-stability": "beta",
     "require": {}
 }
