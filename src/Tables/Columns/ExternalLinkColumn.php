@@ -2,6 +2,7 @@
 
 namespace Andreg\FilamentEnhancer\Tables\Columns;
 
+use Filament\Support\Enums\FontFamily;
 use Illuminate\Support\Str;
 
 class ExternalLinkColumn extends \Filament\Tables\Columns\TextColumn {
@@ -12,6 +13,8 @@ class ExternalLinkColumn extends \Filament\Tables\Columns\TextColumn {
 		$this->url( function ( $state ) {
 			return $state;
 		}, true );
+
+		$this->fontFamily( FontFamily::Mono );
 
 		$this->formatStateUsing( function ( $state ) {
 			return Str::excerpt( $state, '://', [
