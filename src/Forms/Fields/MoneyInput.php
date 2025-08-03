@@ -24,7 +24,7 @@ class MoneyInput extends TextInput {
 
 		$this->currency( config( 'enhancer.currency', $this->currency ) );
 
-		$this->prefix( function () use ( $locale ) {
+		$this->prefix( function () {
 			$formatter = new \NumberFormatter( 'en', \NumberFormatter::CURRENCY );
 			$formatted = $formatter->formatCurrency( 0, $this->currency );
 
