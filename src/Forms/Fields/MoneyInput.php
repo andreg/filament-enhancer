@@ -2,6 +2,7 @@
 
 namespace Andreg\FilamentEnhancer\Forms\Fields;
 
+use Filament\Forms\Components\Field;
 use Filament\Forms\Components\TextInput;
 use Filament\Support\RawJs;
 
@@ -41,6 +42,10 @@ class MoneyInput extends TextInput {
 
 		$this->formatStateUsing( function ( $state ) use ( $formatter ) {
 			return $formatter->format( floatval( $state ) );
+		} );
+
+		$this->afterStateUpdated( function ( $state, Field $component ) use ( $formatter ) {
+			$component->state( $formatter->format( floatval( $state ) ) );
 		} );
 
 		$this->dehydrateStateUsing( function ( $state ) use ( $formatter ) {
