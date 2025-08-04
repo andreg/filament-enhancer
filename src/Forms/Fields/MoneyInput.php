@@ -39,6 +39,7 @@ class MoneyInput extends TextInput {
 		} );
 
 		$this->minValue( 0 );
+		$this->live( onBlur: true );
 
 		$this->formatStateUsing( function ( $state ) use ( $formatter ) {
 			return $formatter->format( floatval( $state ) );
