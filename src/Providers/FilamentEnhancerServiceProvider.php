@@ -21,8 +21,8 @@ class FilamentEnhancerServiceProvider extends ServiceProvider {
 		$this->createTableMacros();
 
 		$this->publishes( [
-			__DIR__ . '/../config/filament-enhancer.php' => config_path( 'filament-enhancer.php' ),
-		] );
+			__DIR__ . '/../../config/filament-enhancer.php' => config_path( 'filament-enhancer.php' ),
+		], 'filament-enhancer' );
 	}
 
 }
