@@ -23,7 +23,7 @@ class MoneyInput extends TextInput {
 		$formatter = new \NumberFormatter( $locale, \NumberFormatter::DECIMAL );
 		$formatter->setAttribute( \NumberFormatter::FRACTION_DIGITS, 2 );
 
-		$this->currency( config( 'enhancer.currency', $this->currency ) );
+		$this->currency( config( 'filament-enhancer.currency', $this->currency ) );
 
 		$this->prefix( function () {
 			$formatter = new \NumberFormatter( 'en', \NumberFormatter::CURRENCY );
