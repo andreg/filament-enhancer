@@ -2,6 +2,8 @@
 
 namespace Andreg\FilamentEnhancer\Tables\Columns;
 
+use Filament\Support\Enums\FontWeight;
+
 class MoneyColumn extends \Filament\Tables\Columns\TextColumn {
 
 	protected string $currency = 'USD';
@@ -24,6 +26,7 @@ class MoneyColumn extends \Filament\Tables\Columns\TextColumn {
 
 		$this->currency( config( 'enhancer.currency', $this->currency ) );
 		$this->isNumeric( true );
+		$this->weight( FontWeight::SemiBold );
 		$this->money( $this->currency, divideBy: function () {
 			return $this->divideBy;
 		} );
