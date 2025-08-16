@@ -24,7 +24,7 @@ class MoneyColumn extends \Filament\Tables\Columns\TextColumn {
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->currency( config( 'enhancer.currency', $this->currency ) );
+		$this->currency( config( 'filament-enhancer.currency', $this->currency ) );
 		$this->isNumeric( true );
 		$this->weight( FontWeight::SemiBold );
 		$this->money( $this->currency, divideBy: function () {
