@@ -27,7 +27,15 @@ class TextColumn extends \Filament\Tables\Columns\TextColumn {
 						continue;
 					}
 
-					$state .= ' <span class="fi-color fi-color-' . $badge[ 'color' ] . ' fi-text-color-600 dark:fi-text-color-200 fi-badge fi-size-sm enhanced-badge">' . $badge[ 'label' ] . '</span>';
+					$badgeClasses = [
+						'fi-color',
+						'fi-color-' . ( ! empty( $badge[ 'color' ] ) ? $badge[ 'color' ] : 'primary' ),
+						'fi-text-color-700',
+						'fi-badge',
+						'fi-size-sm',
+					];
+
+					$state .= ' <span style="margin-inline-start: calc(var(--spacing) * 1.5); margin-block: calc(var(--spacing) * -1);" class="' . implode( ' ', $badgeClasses ) . '">' . $badge[ 'label' ] . '</span>';
 				}
 			}
 
