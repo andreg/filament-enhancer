@@ -56,18 +56,18 @@ class MoneyInput extends TextInput {
 			return (float) $state;
 		} );
 
-		// $this->mask( function () use ( $formatter ) {
-		// 	return RawJs::make(
-		// 		strtr(
-		// 			'$money($input, \'{decimalSeparator}\', \'{groupingSeparator}\', {fractionDigits})',
-		// 			[
-		// 				'{decimalSeparator}'  => $formatter->getSymbol( \NumberFormatter::DECIMAL_SEPARATOR_SYMBOL ),
-		// 				'{groupingSeparator}' => $formatter->getSymbol( \NumberFormatter::GROUPING_SEPARATOR_SYMBOL ),
-		// 				'{fractionDigits}'    => $formatter->getAttribute( \NumberFormatter::FRACTION_DIGITS ),
-		// 			]
-		// 		)
-		// 	);
-		// } );
+		$this->mask( function () use ( $formatter ) {
+			return RawJs::make(
+				strtr(
+					'$money($input, \'{decimalSeparator}\', \'{groupingSeparator}\', {fractionDigits})',
+					[
+						'{decimalSeparator}'  => $formatter->getSymbol( \NumberFormatter::DECIMAL_SEPARATOR_SYMBOL ),
+						'{groupingSeparator}' => $formatter->getSymbol( \NumberFormatter::GROUPING_SEPARATOR_SYMBOL ),
+						'{fractionDigits}'    => $formatter->getAttribute( \NumberFormatter::FRACTION_DIGITS ),
+					]
+				)
+			);
+		} );
 	}
 
 }
