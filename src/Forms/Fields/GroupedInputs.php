@@ -13,7 +13,14 @@ class GroupedInputs extends Fieldset {
 	 */
 	public static function make( Htmlable | Closure | string | null $label = null ): static {
 		$static = parent::make( $label );
-		$static->extraAttributes( [ 'class' => 'fe-grouped-inputs' ] );
+		$static->extraAttributes( [ 'class' => join( ' ', [
+			'fe-grouped-inputs',
+			'isolate',
+			'pt-2',
+			'[&>.fi-sc]:gap-[1px]',
+			'[&_.fi-fo-field-label-col]:hidden',
+			'[&_.fi-input-wrp:focus-within]:z-1',
+		] ) ] );
 		$static->contained( false );
 
 		return $static;
@@ -73,7 +80,9 @@ class GroupedInputs extends Fieldset {
 					if ( $currentColumnSpan[ $breakpoint ] === $breakpointColumns ) {
 						$componentExtraClasses = array_merge( $componentExtraClasses, [ $breakpointPrefix . 'rounded-se-lg' ] );
 					}
-				} elseif ( $row === $totalRows[ $breakpoint ] ) {
+				}
+
+				if ( $row === $totalRows[ $breakpoint ] ) {
 					if ( $rowFirstComponent || $component->getColumnSpan()[ $breakpoint ] === $breakpointColumns ) {
 						$componentExtraClasses = array_merge( $componentExtraClasses, [ $breakpointPrefix . 'rounded-es-lg' ] );
 					}
