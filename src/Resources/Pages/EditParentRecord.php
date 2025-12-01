@@ -8,5 +8,6 @@ class EditParentRecord extends EditRecord {
 
 	use Traits\DisplaysRelationsWithTabs;
 	use Traits\SimplifiesBreadcrumbs;
+	use Traits\NormalizePageTitle;
 
 }
