@@ -10,4 +10,10 @@ class EditParentRecord extends EditRecord {
 	use Traits\SimplifiesBreadcrumbs;
 	use Traits\NormalizePageTitle;
 
+	protected function afterSave(): void {
+		parent::afterSave();
+
+		$this->js( 'document.querySelector("#form [autofocus]")?.focus();' );
+	}
+
 }
