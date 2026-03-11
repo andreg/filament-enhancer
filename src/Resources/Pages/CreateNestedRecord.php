@@ -8,10 +8,4 @@ class CreateNestedRecord extends \Filament\Resources\Pages\CreateRecord {
 	use Traits\RedirectsToParent;
 	use Traits\SimplifiesBreadcrumbs;
 
-	protected function afterCreate(): void {
-		parent::afterCreate();
-
-		$this->js( 'document.querySelector("#form [autofocus]")?.focus();' );
-	}
-
 }
