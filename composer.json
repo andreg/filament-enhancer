@@ -8,13 +8,18 @@
             "Andreg\\FilamentEnhancer\\": "src/"
         }
     },
-	"extra": {
-		"laravel": {
-			"providers": [
-				"Andreg\\FilamentEnhancer\\Providers\\FilamentEnhancerServiceProvider"
-			]
-		}
-	},
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Andreg\\FilamentEnhancer\\Providers\\FilamentEnhancerServiceProvider"
+            ]
+        }
+    },
     "authors": [
         {
             "name": "Andrea Gandino",
@@ -22,5 +27,20 @@
         }
     ],
     "minimum-stability": "beta",
-    "require": {}
+    "prefer-stable": true,
+    "require": {},
+    "require-dev": {
+        "filament/tables": "^5.0",
+        "orchestra/testbench": "^11.0",
+        "pestphp/pest": "^4.0",
+        "pestphp/pest-plugin-laravel": "^4.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+    },
+    "scripts": {
+        "test": "./vendor/bin/pest"
+    }
 }
