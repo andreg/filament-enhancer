@@ -5,6 +5,7 @@ namespace Andreg\FilamentEnhancer\Providers;
 use Illuminate\Support\ServiceProvider;
 
 class FilamentEnhancerServiceProvider extends ServiceProvider {
+
 	use Traits\HandlesTables;
 
 	/**
@@ -22,6 +23,7 @@ class FilamentEnhancerServiceProvider extends ServiceProvider {
 
 		$this->publishes( [
 			__DIR__ . '/../../config/filament-enhancer.php' => config_path( 'filament-enhancer.php' ),
+			__DIR__ . '/../../skills/filament-ui-patterns'  => base_path( '.cursor/skills/filament-ui-patterns' ),
 		], 'filament-enhancer' );
 	}
 
