@@ -16,6 +16,67 @@ density, not theme CSS.
 Before adding a field, column, helper, filter, or action: ask whether it
 helps the user identify, compare, or complete a task. If not, omit it.
 
+## Filament Enhancer first
+
+When `andreg/filament-enhancer` is available, prefer its building blocks over
+raw Filament equivalents whenever the domain matches. Before inventing a
+custom field, column, or page base: list and read what already exists, then
+use it.
+
+Namespaces (re-check the directories — new helpers may appear):
+
+| Need | Prefer |
+|---|---|
+| Form fields | `Andreg\FilamentEnhancer\Forms\Fields\*` |
+| Resource pages | `Andreg\FilamentEnhancer\Resources\Pages\*` (+ `Traits\*`) |
+| Table columns | `Andreg\FilamentEnhancer\Tables\Columns\*` |
+
+### Forms — `Forms\Fields`
+
+Use these instead of bare `TextInput` / `TagsInput` / `CheckboxList` when they fit:
+
+| Class | Use for |
+|---|---|
+| `MoneyInput` | Monetary amounts (currency-aware; never hand-mask currency) |
+| `EmailInput` | Single email |
+| `MultipleEmailInput` | Multiple recipient emails (tags + email rules) |
+| `URLInput` | Absolute URLs |
+| `VersionInput` | Semver-like version strings |
+| `InlineCheckboxList` | Checkbox lists with side-by-side label/description |
+| `GroupedInputs` | Abutting inputs that share one visual group (allowed Fieldset exception) |
+
+Also check `Forms\Components\` (e.g. `UnorderedList`) before a one-off Blade/HTML helper.
+
+### Resources — `Resources\Pages`
+
+Extend enhancer page bases (or compose their traits) instead of Filament’s
+defaults when the behaviour matches:
+
+| Class | Use for |
+|---|---|
+| `CreateRecord` | Top-level create: no “create another”, redirect to index |
+| `CreateNestedRecord` | Nested create under a parent: redirect to parent, simplified breadcrumbs |
+| `EditParentRecord` | Parent edit with relation managers as tabs, normalized title, simplified breadcrumbs |
+
+Traits under `Resources\Pages\Traits\` when a custom page needs only part of
+that behaviour: `CannotCreateAnotherRecord`, `RedirectsToIndex`,
+`RedirectsToParent`, `SimplifiesBreadcrumbs`, `DisplaysRelationsWithTabs`,
+`NormalizePageTitle`.
+
+### Tables — `Tables\Columns`
+
+Use these instead of formatting by hand on Filament `TextColumn`:
+
+| Class | Use for |
+|---|---|
+| `MoneyColumn` | Monetary amounts (pairs with `MoneyInput`) |
+| `EmailColumn` | Emails (mono, copyable) |
+| `ExternalLinkColumn` | External URLs (mono, opens link, excerpted display) |
+| `TextColumn` | Text that needs inline conditional badges via `->badges([...])` |
+
+Do not reimplement currency formatting, email/link chrome, or badge-in-cell
+markup when these columns cover it.
+
 ## File Structure
 
 Resources stay thin. Forms, tables, and custom actions live in dedicated classes.
@@ -33,6 +94,7 @@ Resources/
 ```
 
 - Resource `form()` / `table()` only call `SomeForm::configure($schema)` and `SomeTable::configure($table)`.
+- Create/Edit pages extend `Andreg\FilamentEnhancer\Resources\Pages\*` (or traits) when applicable — see above.
 - Register relation managers with named keys: `'referents' => ReferentsRelationManager::class`.
 - When a `$relatedResource` exists, inherit its form and table. Do not duplicate them.
 
@@ -90,9 +152,10 @@ Tabs::make('tabs')
 
 Tab labels are nouns. Every tab has an icon. `->contained(false)` when the page already provides a card.
 
-### Never use Wizard or Fieldset
+### Never use Wizard or bare Fieldset
 
-`Wizard` is a different UX. `Fieldset` adds noise without meaning.
+`Wizard` is a different UX. Bare `Fieldset` adds noise without meaning.
+`GroupedInputs` (enhancer) is the only allowed Fieldset-based exception.
 
 ### Column counts
 
@@ -175,8 +238,8 @@ Never on name/title `TextInput`, dates, money, `Select`, or toggles.
 **Identity → Amount → Related entity → Date → Status**
 
 1. Primary identifier (name, title, number). Use `->weight(FontWeight::Bold)` when it also has `->description()`.
-2. Money via a dedicated money column if the app has one — never format currency by hand on `TextColumn`.
-3. Related names (`client.name`, `project.name`).
+2. Money via `MoneyColumn` — never format currency by hand on `TextColumn`.
+3. Related names (`client.name`, `project.name`). Emails / external URLs use `EmailColumn` / `ExternalLinkColumn`.
 4. Dates: `->date('d/m/Y')` or `->dateTime('d/m/Y')` to match the app locale.
 5. Status last.
 
@@ -310,6 +373,8 @@ Before finishing a UI change, drop anything that fails these:
 - No table column that does not help triage
 - No `->badge()` on continuous or free-text values
 - No `Tabs` just to reduce scroll
-- No `Wizard` / `Fieldset`
+- No `Wizard` / bare `Fieldset` (use `GroupedInputs` only when abutting inputs need it)
+- No hand-rolled money/email/URL field or column when an enhancer class fits
+- No Filament default Create/Edit page when an enhancer page/trait fits
 - No `ActionGroup` around a single action
 - No `->dehydrated(false)` on fields that must persist
