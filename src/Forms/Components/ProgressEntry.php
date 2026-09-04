@@ -19,7 +19,7 @@ class ProgressEntry extends Entry {
 		return $this;
 	}
 
-	public function max( int | float | Closure $max ): static {
+	public function maximum( int | float | Closure $max ): static {
 		$this->max = $max;
 
 		return $this;

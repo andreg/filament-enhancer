@@ -31,7 +31,7 @@ describe( 'ProgressEntry', function () {
 	test( 'evaluates scalar value and max in getState', function () {
 		$entry = ProgressEntry::make( 'usage' )
 			->value( 3 )
-			->max( 10 );
+			->maximum( 10 );
 
 		expect( $entry->getState() )->toBe( [
 			'value' => 3,
@@ -49,7 +49,7 @@ describe( 'ProgressEntry', function () {
 
 				return 2;
 			} )
-			->max( function () use ( &$maxResolved ): int {
+			->maximum( function () use ( &$maxResolved ): int {
 				$maxResolved = true;
 
 				return 8;
@@ -76,7 +76,7 @@ describe( 'ProgressEntry', function () {
 		$entry = ProgressEntry::make( 'usage' )
 			->model( $record )
 			->value( fn ( ProgressEntryItem $record ): int => (int) $record->used )
-			->max( fn ( ProgressEntryItem $record ): int => (int) $record->total );
+			->maximum( fn ( ProgressEntryItem $record ): int => (int) $record->total );
 
 		expect( $entry->getState() )->toBe( [
 			'value' => 4,
@@ -93,7 +93,7 @@ describe( 'ProgressEntry', function () {
 		$entry = ProgressEntry::make( 'usage' )
 			->model( $record )
 			->value( fn ( $record ): int => (int) $record->used )
-			->max( fn ( $record ): int => (int) $record->total );
+			->maximum( fn ( $record ): int => (int) $record->total );
 
 		expect( $entry->getState() )->toBe( [
 			'value' => 7,

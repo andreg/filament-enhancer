@@ -80,14 +80,15 @@ Use these instead of formatting by hand on Filament `TextColumn`:
 | Class | Use for |
 |---|---|
 | `MoneyColumn` | Monetary amounts (pairs with `MoneyInput`) |
+| `ProgressColumn` | Progress bar (`value` / `maximum`); accepts scalars or Filament-evaluated closures (`$record`, …). Prefer over formatting a ratio as `TextColumn` text. Uses `maximum()` because `Column::max()` is the aggregate API |
 | `EmailColumn` | Emails (mono, copyable) |
 | `ExternalLinkColumn` | External URLs (mono, opens link, excerpted display) |
 | `SubdomainColumn` | Subdomains (mono) |
 | `FileNameColumn` | File names (mono) |
 | `TextColumn` | Text that needs inline conditional badges via `->badges([...])` |
 
-Do not reimplement currency formatting, email/link chrome, or badge-in-cell
-markup when these columns cover it.
+Do not reimplement currency formatting, progress bars, email/link chrome, or
+badge-in-cell markup when these columns cover it.
 
 ### Tables — macros on `Filament\Tables\Table`
 
