@@ -264,6 +264,17 @@ Avoid using repeater fields unless absolutely necessary. A repeater field can be
 
 ## Tables
 
+### Record action
+
+Always specify a record action to perform an action on a single record of a table.
+
+```php
+->recordActions([
+	EditAction::make()
+		->label('Edit'),
+])
+```
+
 ### Column order
 
 **Identity → Amount → Related entity → Date → Status**
