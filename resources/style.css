@@ -5,3 +5,22 @@
 .fi-ta-cell svg.fi-icon + :is(span,a) {
 	margin-inline-start: .5em;
 }
+
+.fe-progress-entry {
+	display: flex;
+	flex-direction: column;
+	gap: .3em;
+}
+
+.fe-progress-entry-track {
+	height: 0.5rem;
+	overflow: hidden;
+	border-radius: 9999px;
+	background: color-mix(in oklab, var(--gray-200) 100%, transparent);
+}
+
+.fe-progress-entry-bar {
+	height: 100%;
+	border-radius: inherit;
+	background: var(--primary-600);
+}

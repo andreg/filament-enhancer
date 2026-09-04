@@ -21,6 +21,8 @@ class FilamentEnhancerServiceProvider extends ServiceProvider {
 	}
 
 	public function boot(): void {
+		$this->loadViewsFrom( __DIR__ . '/../../resources/views', 'filament-enhancer' );
+
 		$this->createTableMacros();
 		$this->injectCustomStyle();
 
@@ -28,6 +30,10 @@ class FilamentEnhancerServiceProvider extends ServiceProvider {
 			__DIR__ . '/../../config/filament-enhancer.php' => config_path( 'filament-enhancer.php' ),
 			__DIR__ . '/../../skills/filament-ui-patterns'  => base_path( '.cursor/skills/filament-ui-patterns' ),
 		], 'filament-enhancer' );
+
+		$this->publishes( [
+			__DIR__ . '/../../resources/views' => resource_path( 'views/vendor/filament-enhancer' ),
+		], 'filament-enhancer-views' );
 	}
 
 	private function injectCustomStyle(): void {

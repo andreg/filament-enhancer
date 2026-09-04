@@ -28,6 +28,7 @@ Namespaces (re-check the directories — new helpers may appear):
 | Need | Prefer |
 |---|---|
 | Form fields | `Andreg\FilamentEnhancer\Forms\Fields\*` |
+| Form / schema components | `Andreg\FilamentEnhancer\Forms\Components\*` |
 | Resource pages | `Andreg\FilamentEnhancer\Resources\Pages\*` (+ `Traits\*`) |
 | Table columns | `Andreg\FilamentEnhancer\Tables\Columns\*` |
 | Table macros | Registered on `Filament\Tables\Table` at boot (see below) |
@@ -47,7 +48,14 @@ Use these instead of bare `TextInput` / `TagsInput` / `CheckboxList` when they f
 | `InlineCheckboxList` | Checkbox lists with side-by-side label/description |
 | `GroupedInputs` | Abutting inputs that share one visual group (allowed Fieldset exception) |
 
-Also check `Forms\Components\` (e.g. `UnorderedList`) before a one-off Blade/HTML helper.
+### Forms — `Forms\Components`
+
+Use these instead of hand-rolled Blade/HTML or bare Filament entries when they fit:
+
+| Class | Use for |
+|---|---|
+| `ProgressEntry` | Read-only progress (`value` / `max`); accepts scalars or Filament-evaluated closures (`$record`, `$get`, …). Prefer over formatting a ratio as `TextEntry` text |
+| `UnorderedList` | Multi-column unordered list layout (`->renderColumns(n)`) |
 
 ### Resources — `Resources\Pages`
 

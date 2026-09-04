@@ -43,7 +43,7 @@ class MoneyColumn extends \Filament\Tables\Columns\TextColumn {
 		$this->money( $this->currency, divideBy: function () {
 			return $this->divideBy;
 		} );
-		// $this->sortable();
+		$this->sortable();
 	}
 
 	protected function numericSortQuery(): Closure {
