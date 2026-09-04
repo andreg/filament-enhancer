@@ -264,16 +264,10 @@ Avoid using repeater fields unless absolutely necessary. A repeater field can be
 
 ## Tables
 
-### Record action
+### Best practices
 
-Always specify a record action to perform an action on a single record of a table.
-
-```php
-->recordActions([
-	EditAction::make()
-		->label('Edit'),
-])
-```
+- When creating a table of records that can be edited, always specify a **record action** (`recordActions()`) to perform the edit on the records listed in the table.
+- Do not add `sortable()` or `searchable()` columns to the table.
 
 ### Column order
 
