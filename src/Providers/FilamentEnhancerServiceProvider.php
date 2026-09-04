@@ -2,6 +2,8 @@
 
 namespace Andreg\FilamentEnhancer\Providers;
 
+use Filament\Support\Facades\FilamentView;
+use Filament\View\PanelsRenderHook;
 use Illuminate\Support\ServiceProvider;
 
 class FilamentEnhancerServiceProvider extends ServiceProvider {
@@ -20,11 +22,21 @@ class FilamentEnhancerServiceProvider extends ServiceProvider {
 
 	public function boot(): void {
 		$this->createTableMacros();
+		$this->injectCustomStyle();
 
 		$this->publishes( [
 			__DIR__ . '/../../config/filament-enhancer.php' => config_path( 'filament-enhancer.php' ),
 			__DIR__ . '/../../skills/filament-ui-patterns'  => base_path( '.cursor/skills/filament-ui-patterns' ),
 		], 'filament-enhancer' );
+	}
+
+	private function injectCustomStyle(): void {
+		FilamentView::registerRenderHook(
+			PanelsRenderHook::HEAD_END,
+			function () {
+				return '<style>' . file_get_contents( __DIR__ . '/../../resources/style.css' ) . '</style>';
+			}
+		);
 	}
 
 }

@@ -42,6 +42,7 @@ Use these instead of bare `TextInput` / `TagsInput` / `CheckboxList` when they f
 | `EmailInput` | Single email |
 | `MultipleEmailInput` | Multiple recipient emails (tags + email rules) |
 | `URLInput` | Absolute URLs |
+| `SubdomainInput` | Subdomains |
 | `VersionInput` | Semver-like version strings |
 | `InlineCheckboxList` | Checkbox lists with side-by-side label/description |
 | `GroupedInputs` | Abutting inputs that share one visual group (allowed Fieldset exception) |
@@ -73,6 +74,8 @@ Use these instead of formatting by hand on Filament `TextColumn`:
 | `MoneyColumn` | Monetary amounts (pairs with `MoneyInput`) |
 | `EmailColumn` | Emails (mono, copyable) |
 | `ExternalLinkColumn` | External URLs (mono, opens link, excerpted display) |
+| `SubdomainColumn` | Subdomains (mono) |
+| `FileNameColumn` | File names (mono) |
 | `TextColumn` | Text that needs inline conditional badges via `->badges([...])` |
 
 Do not reimplement currency formatting, email/link chrome, or badge-in-cell
@@ -228,6 +231,10 @@ Never on name/title `TextInput`, dates, money, `Select`, or toggles.
 - Conditional when it depends on a sibling: `->required(fn (Get $get): bool => $get('passive') === false)`.
 - Optional fields stay unmarked — no extra annotation.
 
+## Select fields
+
+Use native select fields when the options are less than 5 and are known at design time, otherwise prefer the use of searchable select fields.
+
 ## Repeater fields
 
 Avoid using repeater fields unless absolutely necessary. A repeater field can be used if the repeated data is made of max 2 fields, but if the repeated data is bigger, it's better to use a custom table.
@@ -287,6 +294,19 @@ Show only columns that help **identify, compare, or triage** without opening the
 
 One `TextColumn` with `->color()` + `->icon()` + `->formatStateUsing()` from the record. Not a raw enum badge when status is derived from several attributes.
 
+### Rich text columns
+
+Use the `Andreg\FilamentEnhancer\Tables\Columns\TextColumn` column component with both the `label` and `description` set in order to more information in a single column, to save table space.
+
+```
+TextColumn::make( 'name' )
+	->label( 'Nome' )
+	->weight( FontWeight::Bold )
+	->description( fn ( DataSource $record ): string => $record->original_filename )
+	->searchable()
+	->sortable(),
+```
+
 ### Enum badges
 
 `->badge()` only for discrete enum values. Color and label always come from the enum — never hardcoded in the column:
@@ -324,6 +344,7 @@ Do not add filters by default. Add them only for dimensions search cannot cover.
 |---|---|
 | Full create/register form from a table | `->slideOver()` |
 | Small form (about 2–4 fields) | Default centred modal |
+| Medium-large form (more than 4 fields, complex layout) | Standalone page |
 | One-step destructive / irreversible | `->requiresConfirmation()` |
 
 Always set on non-trivial actions: `->label()`, `->icon()`, `->color()`, `->modalHeading()`, `->modalSubmitActionLabel()`.

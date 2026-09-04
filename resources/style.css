@@ -1,0 +1,7 @@
+.font-mono {
+	font-family: var(--font-mono);
+}
+
+.fi-ta-cell svg.fi-icon + :is(span,a) {
+	margin-inline-start: .5em;
+}

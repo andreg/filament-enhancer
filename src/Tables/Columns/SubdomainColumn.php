@@ -5,25 +5,19 @@ namespace Andreg\FilamentEnhancer\Tables\Columns;
 use Filament\Support\Enums\FontFamily;
 use Filament\Support\Enums\IconPosition;
 use Filament\Support\Icons\Heroicon;
-use Illuminate\Support\Str;
+use Illuminate\Support\HtmlString;
 
-class ExternalLinkColumn extends \Filament\Tables\Columns\TextColumn {
+class SubdomainColumn extends \Filament\Tables\Columns\TextColumn {
 
 	protected function setUp(): void {
 		parent::setUp();
 
-		$this->url( function ( $state ) {
-			return $state;
-		}, true );
-
-		$this->fontFamily( FontFamily::Mono );
 		$this->icon( Heroicon::OutlinedGlobeAlt );
 		$this->iconPosition( IconPosition::Before );
+		$this->fontFamily( FontFamily::Mono );
 
 		$this->formatStateUsing( function ( $state ) {
-			return Str::excerpt( $state, '://', [
-				'radius' => 20,
-			] );
+			return new HtmlString( '<span class="font-mono">' . $state . '</span>' );
 		} );
 	}
 

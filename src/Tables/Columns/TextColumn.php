@@ -2,6 +2,7 @@
 
 namespace Andreg\FilamentEnhancer\Tables\Columns;
 
+use Filament\Support\Enums\FontWeight;
 use Illuminate\Support\HtmlString;
 
 class TextColumn extends \Filament\Tables\Columns\TextColumn {
@@ -17,6 +18,7 @@ class TextColumn extends \Filament\Tables\Columns\TextColumn {
 	protected function setUp(): void {
 		parent::setUp();
 
+		$this->weight( FontWeight::Bold );
 		$this->extraCellAttributes( [
 			'class' => 'enhanced-text-column',
 		] );
