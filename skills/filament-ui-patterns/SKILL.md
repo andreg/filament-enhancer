@@ -228,6 +228,10 @@ Never on name/title `TextInput`, dates, money, `Select`, or toggles.
 - Conditional when it depends on a sibling: `->required(fn (Get $get): bool => $get('passive') === false)`.
 - Optional fields stay unmarked — no extra annotation.
 
+## Repeater fields
+
+Avoid using repeater fields unless absolutely necessary. A repeater field can be used if the repeated data is made of max 2 fields, but if the repeated data is bigger, it's better to use a custom table.
+
 ## Reactive Fields
 
 - `->live()` on `Select` / `Toggle` that gate visibility or requiredness.
