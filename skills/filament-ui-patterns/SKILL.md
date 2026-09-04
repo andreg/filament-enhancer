@@ -30,6 +30,7 @@ Namespaces (re-check the directories — new helpers may appear):
 | Form fields | `Andreg\FilamentEnhancer\Forms\Fields\*` |
 | Resource pages | `Andreg\FilamentEnhancer\Resources\Pages\*` (+ `Traits\*`) |
 | Table columns | `Andreg\FilamentEnhancer\Tables\Columns\*` |
+| Table macros | Registered on `Filament\Tables\Table` at boot (see below) |
 
 ### Forms — `Forms\Fields`
 
@@ -76,6 +77,17 @@ Use these instead of formatting by hand on Filament `TextColumn`:
 
 Do not reimplement currency formatting, email/link chrome, or badge-in-cell
 markup when these columns cover it.
+
+### Tables — macros on `Filament\Tables\Table`
+
+These are **not** Filament core APIs. The enhancer registers them via
+`Table::macro(...)` in `Providers\Traits\HandlesTables` during package boot.
+Use them whenever the enhancer is installed; do not reimplement the same
+options by hand.
+
+| Macro | Use for |
+|---|---|
+| `forcePagination(int $limit = 20)` | Lock page size to `$limit` only (`paginationPageOptions([$limit])` + `defaultPaginationPageOption($limit)`). Typical: `20`; `50` only for dense operational lists. |
 
 ## File Structure
 
@@ -263,7 +275,7 @@ Show only columns that help **identify, compare, or triage** without opening the
 
 ### Pagination and default order
 
-- Always `->forcePagination(n)`. Typical: 20; 50 only for dense operational lists.
+- Always `->forcePagination(n)` (enhancer `Table` macro — see above). Typical: 20; 50 only for dense operational lists. Do not substitute with Filament’s `defaultPaginationPageOption` / `paginationPageOptions` alone when the enhancer is available.
 - Multi-column natural order: `->modifyQueryUsing()` with explicit `orderBy()`.
 - Single-column order: `->defaultSort()` is enough.
 
@@ -376,5 +388,6 @@ Before finishing a UI change, drop anything that fails these:
 - No `Wizard` / bare `Fieldset` (use `GroupedInputs` only when abutting inputs need it)
 - No hand-rolled money/email/URL field or column when an enhancer class fits
 - No Filament default Create/Edit page when an enhancer page/trait fits
+- No hand-rolled pagination options when `->forcePagination(n)` fits
 - No `ActionGroup` around a single action
 - No `->dehydrated(false)` on fields that must persist
